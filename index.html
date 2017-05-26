@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Train Scheduler</title>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+    <!-- MomentJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="jumbotron">
+                <h1>Train Scheduler</h1>
+            </div>
+        </div>
+        <div class="row">
+            
+            <div id="input-form" class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title"><h3>Add a New Train</h3></div>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Train Name</label>
+                            <input type="text" class="form-control" id="name-input" placeholder="name">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="destination">Destination</label>
+                                    <input type="text" class="form-control" id="destination-input" placeholder="destination">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="first-train">First Train Time (Military Time)</label>
+                                    <input type="time" class="form-control" id="time-input" placeholder="time">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="frequency">Frequency (Minutes)</label>
+                                    <input type="number" class="form-control" id="frequency-input" placeholder="frequency">
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <table class="table">
+                    <thead class="thead-inverse">
+                        <!-- Add column headers -->
+                        <tr>
+                            <th>Train</th>
+                            <th>Destination</th>
+                            <th>Frequency (Min)</th>
+                            <th>Next Arrival</th>
+                            <th>Minutes Away</th>
+                        </tr>
+                    </thead>
+                    <tbody id="train-list">
+                        <tr>
+                            <td>Choo Choo</td>
+                            <td>Disneyland</td>
+                            <td>30</td>
+                            <td>3:00</td>
+                            <td>15 Mins Away</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+        </div>
+    </div>
+</body>
+
+</html>
