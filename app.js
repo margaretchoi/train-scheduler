@@ -14,22 +14,24 @@ var trainDatabase = database.ref('/trains');
 
 var test = [];
 
+$('#submit-btn').on('click', addTrain);
+
 
 // Submit function, sends form data to db
 function addTrain(event) {
 
-    // event.preventDefault();
-
-    console.log("Start");
+    event.preventDefault();
 
     database.ref('/trains');
 
-    // Get input
+    // Get input from the form fields
     var trainName = $("#name-input").val().trim();
     var trainDest = $("#destination-input").val().trim();
     var trainTime = $("#time-input").val().trim();
     var trainFreq = $("#frequency-input").val().trim();
 
+
+    // Create an object using form inputs
     var newTrain = {
         name: trainName,
         destination: trainDest,
@@ -37,7 +39,7 @@ function addTrain(event) {
         frequency: trainFreq
     };
 
-    // Add employee data to the database
+    // Add train object to the database
     database.ref('/trains').push(newTrain);
 
     // Alert
@@ -61,24 +63,43 @@ trainDatabase.on("child_added", function(childSnapshot) {
 
 
 function calcNextMin (trainTime, trainFreq) {
-    console.log(trainTime);
-    console.log(trainFreq);
+    // console.log(trainTime);
+    // console.log(trainFreq);
     var x = parseInt(trainFreq);
 
     var startTime = moment(trainTime, 'HH:mm');
     var startFreq = moment(trainFreq, 'm');
     var nextTrain = startTime.add(x, 'm');
 
-    console.log('start time', startTime);
+    // console.log('start time', startTime);
 
-    console.log('next train time', nextTrain.format('HH:mm'));
+    // console.log('next train time', nextTrain.format('HH:mm'));
 
-    return nextTrain.format('HH:mm');
+    return nextTrain;
 };
 
 function calcNextTime (trainTime, trainFreq) {
-    calcNextMin(trainTime, trainFreq);
+    var x = calcNextMin(trainTime, trainFreq);
+    var tilNext = updateTime(trainTime, trainFreq);
+    var now = moment();
+    
+    console.log('tilNext pre', tilNext);
+    
+    tilNext = tilNext.fromNow();
+
+    console.log('tilNext', tilNext);
+
+    // // tilNext = tilNext.format('s');
+    // tilNext = parseInt(tilNext.valueOf());
+    
+
+
+    // setTimeout (function(){}, tilNext*1000);
+    
+    return tilNext
 }
+
+
 
 //Takes an emp (employee) object and adds a new row to #empList with employee data
 function makeRow(trainName, trainDest, trainTime, trainFreq) {
@@ -87,9 +108,30 @@ function makeRow(trainName, trainDest, trainTime, trainFreq) {
     var name = $("<td>").text(trainName);
     var destination = $("<td>").text(trainDest);
     var frequency = $("<td>").text(trainFreq);
-    var next = $("<td>").text(calcNextMin(trainTime, trainFreq));
+    var next = $("<td>").text(updateTime(trainTime, trainFreq).format('HH:mm'));
     var min = $("<td>").text(calcNextTime(trainTime, trainFreq));
 
     newTrain.append(name, destination, frequency, next, min);
     $("#train-list").append(newTrain);
+}
+
+function updateTime(trainTime, trainFreq) {
+    var firstTime = moment(trainTime, 'HH:mm'); 
+    var now = moment();
+
+    // console.log('firstTime', trainTime.toNow());
+    console.log('trainTime', trainTime);
+    console.log('firstTime', firstTime.format('HH:mm'));
+
+    while (firstTime.diff(now, "m") < 0) {
+        firstTime = firstTime.add(parseInt(trainFreq), 'm')
+    }
+    
+    console.log(now);
+    return firstTime
+}
+
+
+function resetTrain() {
+    database.ref('/trains').remove();
 }
