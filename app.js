@@ -105,11 +105,11 @@ function calcNextTime (trainTime, trainFreq) {
 function makeRow(trainName, trainDest, trainTime, trainFreq) {
 
     var newTrain = $("<tr>");
-    var name = $("<td>").text(trainName);
-    var destination = $("<td>").text(trainDest);
-    var frequency = $("<td>").text(trainFreq);
-    var next = $("<td>").text(updateTime(trainTime, trainFreq).format('HH:mm'));
-    var min = $("<td>").text(calcNextTime(trainTime, trainFreq));
+    var name = $("<td>").text(trainName.toUpperCase());
+    var destination = $("<td>").text(trainDest.toUpperCase());
+    var frequency = $("<td class='center'>").text(trainFreq);
+    var next = $("<td class='center'>").text(updateTime(trainTime, trainFreq).format('HH:mm'));
+    var min = $("<td class='next center'>").text(calcNextTime(trainTime, trainFreq));
 
     newTrain.append(name, destination, frequency, next, min);
     $("#train-list").append(newTrain);

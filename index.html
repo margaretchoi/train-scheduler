@@ -4,9 +4,10 @@
 <head>
     <title>Train Scheduler</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Teko" rel="stylesheet">
     <!-- Bootstrap CDN-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
@@ -27,8 +28,8 @@
                     <div class="panel-title"><h3>Train Schedule</h3></div>
                 </div>
                 <div class="panel-body">
-                    <table class="table">
-                        <thead class="thead-inverse">
+                    <table class="table" id="train-schedule">
+                        <thead class="thead-inverse light_blue text-center">
                             <!-- Add column headers -->
                             <tr>
                                 <th>Train</th>
@@ -38,7 +39,7 @@
                                 <th>Next Train</th>
                             </tr>
                         </thead>
-                        <tbody id="train-list">
+                        <tbody id="train-list" class="text-center">
                         </tbody>
                     </table>
                 </div>
